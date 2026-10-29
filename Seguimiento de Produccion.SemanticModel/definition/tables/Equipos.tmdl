@@ -1,0 +1,484 @@
+table Equipos
+	lineageTag: 51d2cc97-0374-54dc-8145-2c62fd9366d8
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 1e543ded-76cf-5f2f-bf97-edac96ef16e4
+		summarizeBy: none
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Handset quote ID'
+		dataType: string
+		lineageTag: 4a18a6ec-6375-524b-bb1d-0bee1f159877
+		summarizeBy: none
+		sourceColumn: Handset quote ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Serial
+		dataType: string
+		lineageTag: 74d756b0-971a-5591-be31-289fff126563
+		summarizeBy: none
+		sourceColumn: Serial
+
+		annotation SummarizationSetBy = Automatic
+
+	column Proyecto
+		dataType: string
+		lineageTag: 1f8822db-defa-5d92-9cac-5ee6d20f800e
+		summarizeBy: none
+		sourceColumn: Proyecto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Marca
+		dataType: string
+		lineageTag: 4748c673-b326-5711-8c60-1cd25a1a5be2
+		summarizeBy: none
+		sourceColumn: Marca
+
+		annotation SummarizationSetBy = Automatic
+
+	column Modelo
+		dataType: string
+		lineageTag: fe5174dd-cc1c-54db-9c9f-63316669d6ca
+		summarizeBy: none
+		sourceColumn: Modelo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Lote
+		dataType: string
+		lineageTag: f7f359c9-58b4-5ce5-bcde-fb1709f2b63c
+		summarizeBy: none
+		sourceColumn: Lote
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha creación'
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 0451b299-391e-5d98-b14a-66a69fe4aa0b
+		summarizeBy: none
+		sourceColumn: Fecha creación
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Estado sistema'
+		dataType: string
+		lineageTag: edebed59-3f95-555f-afd8-543d5e60fee1
+		summarizeBy: none
+		sourceColumn: Estado sistema
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Grading MPX'
+		dataType: string
+		lineageTag: 41a8781d-d795-5d83-8ed2-7dcb260dc44b
+		summarizeBy: none
+		sourceColumn: Grading MPX
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Grading compra'
+		dataType: string
+		lineageTag: 91eafb02-5be0-5182-ab28-e6658cd394cf
+		summarizeBy: none
+		sourceColumn: Grading compra
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Grading venta'
+		dataType: string
+		lineageTag: 2d8141c7-dc37-570a-9e07-3d26aaf3faab
+		summarizeBy: none
+		sourceColumn: Grading venta
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Salud batería'
+		dataType: string
+		lineageTag: cbb6c04f-8863-553a-986f-c952319fc213
+		summarizeBy: none
+		sourceColumn: Salud batería
+		sortByColumn: 'Orden salud batería'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha pre-recepción'
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: ac2ddd06-990d-509e-86f1-3e6fa69e95ff
+		summarizeBy: none
+		sourceColumn: Fecha pre-recepción
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Usr pre-recepción'
+		dataType: string
+		lineageTag: 68cc8bf6-5913-53a7-b3d3-9add99ff9ee8
+		summarizeBy: none
+		sourceColumn: Usr pre-recepción
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha recepción'
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 863b3e15-3cdc-5b82-9984-bdccde0f0e60
+		summarizeBy: none
+		sourceColumn: Fecha recepción
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Usr recepción'
+		dataType: string
+		lineageTag: b88cbc31-8016-5910-8dd5-d9a98f2daaff
+		summarizeBy: none
+		sourceColumn: Usr recepción
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha compra'
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 9cdd0edf-8c38-5a13-bb08-a6ebba3ba0b0
+		summarizeBy: none
+		sourceColumn: Fecha compra
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Usr compra'
+		dataType: string
+		lineageTag: 69c5a17a-fe1e-5b19-8820-23eba3a5a081
+		summarizeBy: none
+		sourceColumn: Usr compra
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha cosmética'
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 76c419ba-5bb4-5841-bff1-06703c8e07f4
+		summarizeBy: none
+		sourceColumn: Fecha cosmética
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Usr cosmética'
+		dataType: string
+		lineageTag: 51f2a596-41ad-5472-8bff-2f966b16ab78
+		summarizeBy: none
+		sourceColumn: Usr cosmética
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha funcional'
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 3fa6a0bc-b8d2-580b-aa34-3efd45f9cb19
+		summarizeBy: none
+		sourceColumn: Fecha funcional
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Usr funcional'
+		dataType: string
+		lineageTag: ab28f741-9f1c-52fc-9571-05040ec6732c
+		summarizeBy: none
+		sourceColumn: Usr funcional
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha batería'
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: a8b9b0cb-656f-5796-96cd-911fbc7ad3e3
+		summarizeBy: none
+		sourceColumn: Fecha batería
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Usr batería'
+		dataType: string
+		lineageTag: ea6522aa-f9d1-5557-9a2f-0f0d743fc624
+		summarizeBy: none
+		sourceColumn: Usr batería
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha disposición final'
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 0bc3807d-6b93-5c81-a205-b6d3b5582b91
+		summarizeBy: none
+		sourceColumn: Fecha disposición final
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Usr disposición final'
+		dataType: string
+		lineageTag: a9277aaa-c0cd-5fa7-a366-cac4493b3583
+		summarizeBy: none
+		sourceColumn: Usr disposición final
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha despacho'
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 31cbcf4d-03bd-55fc-9d0d-704c03633656
+		summarizeBy: none
+		sourceColumn: Fecha despacho
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha cierre'
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 589faf2e-62be-53f2-87fe-5df3304c4940
+		summarizeBy: none
+		sourceColumn: Fecha cierre
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha envío reparo'
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 5f883956-fc06-5285-b8c7-40784255aa49
+		summarizeBy: none
+		sourceColumn: Fecha envío reparo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha devolución reparo'
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 7a6a2dda-de8a-5d80-bd46-88d530162250
+		summarizeBy: none
+		sourceColumn: Fecha devolución reparo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Destino
+		dataType: string
+		lineageTag: f63314a6-96f6-5ace-ab69-ebfe4f368033
+		summarizeBy: none
+		sourceColumn: Destino
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Estado actual'
+		dataType: string
+		lineageTag: 2362f48b-2fd8-5697-8394-8dd628772b11
+		summarizeBy: none
+		sourceColumn: Estado actual
+		sortByColumn: 'Orden estado'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Orden estado'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 40100e5c-c3f1-5eae-9496-782ffc026bf6
+		summarizeBy: none
+		sourceColumn: Orden estado
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Última etapa'
+		dataType: string
+		lineageTag: 7fbb02bc-8431-5147-9d2f-bd41dee2332f
+		summarizeBy: none
+		sourceColumn: Última etapa
+		sortByColumn: 'Orden última etapa'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Orden última etapa'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 82f351db-6399-5314-959e-1eeb3a119f3f
+		summarizeBy: none
+		sourceColumn: Orden última etapa
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Lead time (días)'
+		dataType: double
+		formatString: #,0.0
+		lineageTag: bb852023-40c4-5175-8614-867b16a057ac
+		summarizeBy: none
+		sourceColumn: Lead time (días)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Días en planta'
+		dataType: double
+		formatString: #,0.0
+		lineageTag: c338824d-f9eb-51a3-b84a-0584d52c9b1a
+		summarizeBy: none
+		sourceColumn: Días en planta
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Rango antigüedad'
+		dataType: string
+		lineageTag: 5638a8f5-ca87-57d0-bb9f-d5c77ba20ef7
+		summarizeBy: none
+		sourceColumn: Rango antigüedad
+		sortByColumn: 'Orden rango'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Orden rango'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 20b4df69-85f1-5f51-9ebf-52a998d0903d
+		summarizeBy: none
+		sourceColumn: Orden rango
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Orden salud batería'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5191b8d2-9640-5629-8a74-473a11cdf3c5
+		summarizeBy: none
+		sourceColumn: Orden salud batería
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Equipos = m
+		mode: import
+		source =
+				let
+				    // 1) Tabla SLANOVEDADES de la hoja BASE (un registro por equipo)
+				    Origen = Excel.Workbook(File.Contents(RutaExcel), null, true),
+				    Tabla = Origen{[Item = "SLANOVEDADES", Kind = "Table"]}[Data],
+
+				    // 2) Columnas útiles con nombres legibles (la de batería se busca por nombre por la tilde)
+				    ColBateria = List.First(List.Select(Table.ColumnNames(Tabla), each Text.StartsWith(Text.Upper(_), "BATER")), "BATERÍA"),
+				    Origenes = {
+				        {"ID", "ID"}, {"HANDSET_QUOTE_ID", "Handset quote ID"}, {"SERIAL_NUMBER", "Serial"},
+				        {"PROYECTO", "Proyecto"}, {"MARCA", "Marca"}, {"MODELO", "Modelo"}, {"LOTE", "Lote"},
+				        {"FECHA_CREACION", "Fecha creación"}, {"ETAPA_PROCESO", "Estado sistema"},
+				        {"Grading MPX", "Grading MPX"}, {"Grading de Compra", "Grading compra"}, {"Grading de Venta", "Grading venta"},
+				        {ColBateria, "Salud batería"},
+				        {"FECHA PRE-RECEPCION", "Fecha pre-recepción"}, {"USR PRE-RECEPCION", "Usr pre-recepción"},
+				        {"FECHA RECEPCIONADO", "Fecha recepción"}, {"USR RECEPCIONADO", "Usr recepción"},
+				        {"FECHA GRADE COMPRA", "Fecha compra"}, {"USR GRADE COMPRA", "Usr compra"},
+				        {"FECHA COSMETICO", "Fecha cosmética"}, {"USR COSMETICO", "Usr cosmética"},
+				        {"FECHA FUNCIONAL", "Fecha funcional"}, {"USR FUNCIONAL", "Usr funcional"},
+				        {"FECHA BATERIA", "Fecha batería"}, {"USR BATERIA", "Usr batería"},
+				        {"FECHA DISPOSICION FINAL", "Fecha disposición final"}, {"USR DISPOSICION FINAL", "Usr disposición final"},
+				        {"FECHA DESPACHO", "Fecha despacho"}, {"FECHA CIERRE", "Fecha cierre"},
+				        {"FECHA ENVIO A REPARO", "Fecha envío reparo"}, {"FECHA_DEVOLUCION_DE_REPARO", "Fecha devolución reparo"}
+				    },
+				    Seleccion = Table.SelectColumns(Tabla, List.Transform(Origenes, each _{0}), MissingField.UseNull),
+				    Renombrado = Table.RenameColumns(Seleccion, List.Select(Origenes, each _{0} <> _{1})),
+
+				    // 3) La tabla de Excel trae miles de filas vacías al final: quedan solo las que tienen ID
+				    ConDatos = Table.SelectRows(Renombrado, each [ID] <> null and Text.Trim(Text.From([ID])) <> ""),
+
+				    // 4) Conversores: las fechas pueden venir como fecha, número de serie de Excel o texto
+				    AFecha = (v) =>
+				        if v = null then null
+				        else if Value.Is(v, type datetime) then v
+				        else if Value.Is(v, type date) then DateTime.From(v)
+				        else if Value.Is(v, type number) then (if v > 1 then DateTime.From(v) else null)
+				        else let t = Text.Trim(Text.From(v)) in
+				            if t = "" then null else try DateTime.FromText(t, [Culture = "es-AR"]) otherwise null,
+				    ATexto = (v) =>
+				        if v = null then null
+				        else let t = Text.Trim(if Value.Is(v, type number) then Number.ToText(v, "0") else Text.From(v)) in
+				            if t = "" then null else t,
+				    ColsFecha = {"Fecha creación", "Fecha pre-recepción", "Fecha recepción", "Fecha compra", "Fecha cosmética",
+				        "Fecha funcional", "Fecha batería", "Fecha disposición final", "Fecha despacho", "Fecha cierre",
+				        "Fecha envío reparo", "Fecha devolución reparo"},
+				    ColsUsr = {"Usr pre-recepción", "Usr recepción", "Usr compra", "Usr cosmética", "Usr funcional",
+				        "Usr batería", "Usr disposición final"},
+				    ColsTexto = {"Handset quote ID", "Serial", "Proyecto", "Marca", "Modelo", "Lote", "Estado sistema",
+				        "Grading MPX", "Grading compra", "Grading venta", "Salud batería"},
+				    Tipos = Table.TransformColumns(ConDatos,
+				        {{"ID", each Int64.From(_), Int64.Type}}
+				        & List.Transform(ColsFecha, (c) => {c, AFecha, type nullable datetime})
+				        & List.Transform(ColsTexto, (c) => {c, ATexto, type nullable text})
+				        & List.Transform(ColsUsr, (c) => {c, each let t = ATexto(_) in if t = null then "(sin usuario)" else Text.Upper(t), type text})),
+
+				    // 5) Normalización de textos (marcas y modelos vienen con mayúsculas mezcladas)
+				    Normal = Table.TransformColumns(Tipos, {
+				        {"Marca", each if _ = null then "SIN MARCA" else Text.Upper(_), type text},
+				        {"Modelo", each if _ = null then "SIN MODELO" else Text.Upper(_), type text},
+				        {"Proyecto", each if _ = null then "Sin proyecto" else _, type text},
+				        {"Lote", each if _ = null then "Sin lote" else _, type text},
+				        {"Estado sistema", each if _ = null then "Sin dato" else _, type text},
+				        {"Grading MPX", each if _ = null then "Sin dato" else _, type text},
+				        {"Grading compra", each if _ = null then "Sin dato" else _, type text},
+				        {"Grading venta", each if _ = null then "Sin dato" else Text.Upper(_), type text},
+				        {"Salud batería", each if _ = null then "Sin dato" else _, type text}}),
+
+				    // 6) Destino de la disposición final (igual que el Excel: A/B/C = Packing, D/E/SLV = Scrap)
+				    Destino = Table.AddColumn(Normal, "Destino", each
+				        if List.Contains({"A", "B", "C"}, [Grading venta]) then "ABC"
+				        else if List.Contains({"D", "E", "SLV"}, [Grading venta]) then "Scrap"
+				        else "Sin grading", type text),
+
+				    // 7) Estado actual del equipo en el flujo
+				    Ahora = DateTime.LocalNow(),
+				    Estado = Table.AddColumn(Destino, "Estado actual", each
+				        if [Fecha cierre] <> null or [Fecha despacho] <> null then "Cerrado"
+				        else if [Fecha disposición final] <> null then "Disposición final"
+				        else if Text.Contains(Text.Upper([Estado sistema]), "CANCEL") then "Cancelado"
+				        else if [Fecha recepción] = null then "Pendiente de recepción"
+				        else if [Fecha envío reparo] <> null
+				            and ([Fecha devolución reparo] = null or [Fecha devolución reparo] < [Fecha envío reparo]) then "En reparo"
+				        else "En planta", type text),
+				    OrdenEstado = Table.AddColumn(Estado, "Orden estado", each
+				        List.PositionOf({"Pendiente de recepción", "En planta", "En reparo", "Disposición final", "Cerrado", "Cancelado"}, [Estado actual]) + 1, Int64.Type),
+
+				    // 8) Última etapa registrada (la de fecha más reciente)
+				    UltimaEtapa = Table.AddColumn(OrdenEstado, "Última etapa", each
+				        let
+				            Pasos = List.Select({
+				                {"Recepción", [Fecha recepción]}, {"Compra", [Fecha compra]}, {"Cosmética", [Fecha cosmética]},
+				                {"Funcional", [Fecha funcional]}, {"Batería", [Fecha batería]},
+				                {"Vuelta de reparo", [Fecha devolución reparo]}, {"Disposición final", [Fecha disposición final]}},
+				                each _{1} <> null),
+				            Ultimo = if List.IsEmpty(Pasos) then null else List.Last(List.Sort(Pasos, each _{1}))
+				        in
+				            if Ultimo = null then "Sin movimientos" else Ultimo{0}, type text),
+				    OrdenUltima = Table.AddColumn(UltimaEtapa, "Orden última etapa", each
+				        List.PositionOf({"Sin movimientos", "Recepción", "Compra", "Cosmética", "Funcional", "Batería", "Vuelta de reparo", "Disposición final"}, [Última etapa]) + 1, Int64.Type),
+
+				    // 9) Tiempos: lead time Recepción -> Disposición final y antigüedad de lo que sigue en planta
+				    Lead = Table.AddColumn(OrdenUltima, "Lead time (días)", each
+				        if [Fecha recepción] <> null and [Fecha disposición final] <> null
+				            and [Fecha disposición final] >= [Fecha recepción]
+				        then Number.Round(Duration.TotalDays([Fecha disposición final] - [Fecha recepción]), 1) else null,
+				        type nullable number),
+				    DiasPlanta = Table.AddColumn(Lead, "Días en planta", each
+				        if List.Contains({"En planta", "En reparo"}, [Estado actual]) and [Fecha recepción] <> null
+				        then Number.Round(Duration.TotalDays(Ahora - [Fecha recepción]), 1) else null, type nullable number),
+				    Rango = Table.AddColumn(DiasPlanta, "Rango antigüedad", each
+				        let d = [Días en planta] in
+				            if d = null then null
+				            else if d < 3 then "0–2 días" else if d < 8 then "3–7 días" else if d < 16 then "8–15 días"
+				            else if d < 31 then "16–30 días" else if d < 91 then "31–90 días" else "Más de 90 días",
+				        type nullable text),
+				    OrdenRango = Table.AddColumn(Rango, "Orden rango", each
+				        List.PositionOf({"0–2 días", "3–7 días", "8–15 días", "16–30 días", "31–90 días", "Más de 90 días"}, [Rango antigüedad]) + 1, Int64.Type),
+				    OrdenBateria = Table.AddColumn(OrdenRango, "Orden salud batería", each
+				        let p = List.PositionOf({"Superior a 95%", "Entre 91% y 95%", "Entre 90% y 94,9%", "Entre 85% y 89,9%", "Entre 81% y 90%", "Inferior a 85%", "Inferior a 80%", "Ok", "N/A", "Sin dato"}, [Salud batería]) in if p < 0 then 9 else p + 1, Int64.Type)
+				in
+				    OrdenBateria
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,114 @@
+table Eventos
+	lineageTag: 779c6788-ef77-5447-a5de-378ab482e7c0
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 61d29331-14c4-578a-9afb-6e139c01e7e2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [ID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Etapa
+		dataType: string
+		lineageTag: 0a21cb5f-8fd8-565f-8174-8c734fb250ab
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Etapa]
+
+		annotation SummarizationSetBy = Automatic
+
+	column FechaHora
+		dataType: dateTime
+		formatString: dd/mm/yyyy hh:nn
+		lineageTag: 88693675-445f-5c21-b2b3-da67936e237a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [FechaHora]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fecha
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 07fff02a-bf3e-5abe-894b-d49a46c08fa0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Fecha]
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column Hora
+		dataType: int64
+		formatString: 0
+		lineageTag: e8c7cf9e-74b9-53b7-9320-ec86a261a930
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Hora]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Usuario
+		dataType: string
+		lineageTag: dda18707-225a-547c-8911-75fd5a9a26f1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Usuario]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Eventos = calculated
+		mode: import
+		source =
+				// Una fila por equipo y etapa productiva realizada (equivale a los COUNTIFS de la hoja PRODUCCION)
+				VAR _Pasos =
+				    UNION (
+				        SELECTCOLUMNS (
+				            FILTER ( Equipos, NOT ISBLANK ( Equipos[Fecha recepción] ) ),
+				            "ID", Equipos[ID], "Etapa", "Recepción",
+				            "FechaHora", Equipos[Fecha recepción], "Usuario", Equipos[Usr recepción]
+				        ),
+				        SELECTCOLUMNS (
+				            FILTER ( Equipos, NOT ISBLANK ( Equipos[Fecha compra] ) ),
+				            "ID", Equipos[ID], "Etapa", "Compra",
+				            "FechaHora", Equipos[Fecha compra], "Usuario", Equipos[Usr compra]
+				        ),
+				        SELECTCOLUMNS (
+				            FILTER ( Equipos, NOT ISBLANK ( Equipos[Fecha cosmética] ) ),
+				            "ID", Equipos[ID], "Etapa", "Cosmética",
+				            "FechaHora", Equipos[Fecha cosmética], "Usuario", Equipos[Usr cosmética]
+				        ),
+				        SELECTCOLUMNS (
+				            FILTER ( Equipos, NOT ISBLANK ( Equipos[Fecha funcional] ) ),
+				            "ID", Equipos[ID], "Etapa", "Funcional",
+				            "FechaHora", Equipos[Fecha funcional], "Usuario", Equipos[Usr funcional]
+				        ),
+				        SELECTCOLUMNS (
+				            FILTER ( Equipos, NOT ISBLANK ( Equipos[Fecha batería] ) ),
+				            "ID", Equipos[ID], "Etapa", "Batería",
+				            "FechaHora", Equipos[Fecha batería], "Usuario", Equipos[Usr batería]
+				        ),
+				        SELECTCOLUMNS (
+				            FILTER ( Equipos, NOT ISBLANK ( Equipos[Fecha disposición final] ) ),
+				            "ID", Equipos[ID],
+				            "Etapa", SWITCH ( Equipos[Destino], "ABC", "Disp. final ABC", "Scrap", "Disp. final Scrap", "Disp. final s/grading" ),
+				            "FechaHora", Equipos[Fecha disposición final], "Usuario", Equipos[Usr disposición final]
+				        )
+				    )
+				RETURN
+				    SELECTCOLUMNS (
+				        _Pasos,
+				        "ID", [ID],
+				        "Etapa", [Etapa],
+				        "FechaHora", [FechaHora],
+				        "Fecha", DATE ( YEAR ( [FechaHora] ), MONTH ( [FechaHora] ), DAY ( [FechaHora] ) ),
+				        "Hora", HOUR ( [FechaHora] ),
+				        "Usuario", [Usuario]
+				    )
+
+	annotation PBI_Id = ef0eea4eb9e4ccb95833
+

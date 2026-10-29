@@ -1,0 +1,444 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "7bc1cc4df740e48ecff9",
+  "position": {
+    "x": 20,
+    "y": 134,
+    "z": 10000,
+    "height": 576,
+    "width": 1240,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Equipos"
+                    }
+                  },
+                  "Property": "ID"
+                }
+              },
+              "queryRef": "Equipos.ID",
+              "nativeQueryRef": "ID",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Equipos"
+                    }
+                  },
+                  "Property": "Serial"
+                }
+              },
+              "queryRef": "Equipos.Serial",
+              "nativeQueryRef": "Serial",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Equipos"
+                    }
+                  },
+                  "Property": "Marca"
+                }
+              },
+              "queryRef": "Equipos.Marca",
+              "nativeQueryRef": "Marca",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Equipos"
+                    }
+                  },
+                  "Property": "Modelo"
+                }
+              },
+              "queryRef": "Equipos.Modelo",
+              "nativeQueryRef": "Modelo",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Equipos"
+                    }
+                  },
+                  "Property": "Proyecto"
+                }
+              },
+              "queryRef": "Equipos.Proyecto",
+              "nativeQueryRef": "Proyecto",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Equipos"
+                    }
+                  },
+                  "Property": "Estado actual"
+                }
+              },
+              "queryRef": "Equipos.Estado actual",
+              "nativeQueryRef": "Estado actual",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Equipos"
+                    }
+                  },
+                  "Property": "Última etapa"
+                }
+              },
+              "queryRef": "Equipos.Última etapa",
+              "nativeQueryRef": "Última etapa",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Equipos"
+                    }
+                  },
+                  "Property": "Grading compra"
+                }
+              },
+              "queryRef": "Equipos.Grading compra",
+              "nativeQueryRef": "Grading compra",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Equipos"
+                    }
+                  },
+                  "Property": "Grading venta"
+                }
+              },
+              "queryRef": "Equipos.Grading venta",
+              "nativeQueryRef": "Grading venta",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Equipos"
+                    }
+                  },
+                  "Property": "Salud batería"
+                }
+              },
+              "queryRef": "Equipos.Salud batería",
+              "nativeQueryRef": "Salud batería",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Equipos"
+                    }
+                  },
+                  "Property": "Fecha recepción"
+                }
+              },
+              "queryRef": "Equipos.Fecha recepción",
+              "nativeQueryRef": "Fecha recepción",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Equipos"
+                    }
+                  },
+                  "Property": "Fecha disposición final"
+                }
+              },
+              "queryRef": "Equipos.Fecha disposición final",
+              "nativeQueryRef": "Fecha disposición final",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Equipos"
+                    }
+                  },
+                  "Property": "Días en planta"
+                }
+              },
+              "queryRef": "Equipos.Días en planta",
+              "nativeQueryRef": "Días en planta",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Equipos"
+                    }
+                  },
+                  "Property": "Lead time (días)"
+                }
+              },
+              "queryRef": "Equipos.Lead time (días)",
+              "nativeQueryRef": "Lead time (días)",
+              "active": true
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Equipos"
+                  }
+                },
+                "Property": "Fecha recepción"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0F2A44'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Equipos'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0F2A44'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#DDE3EA'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

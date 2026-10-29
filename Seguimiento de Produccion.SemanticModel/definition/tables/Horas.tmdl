@@ -1,0 +1,53 @@
+table Horas
+	lineageTag: 37ed02f4-7cdf-5ef9-bb84-c2452e81dd39
+
+	column Hora
+		dataType: int64
+		formatString: 0
+		lineageTag: a6c93edc-5aec-51bc-a699-ee859e91fbe9
+		summarizeBy: none
+		sourceColumn: Hora
+
+		annotation SummarizationSetBy = Automatic
+
+	column Franja
+		dataType: string
+		lineageTag: 207b3893-7c46-563c-8619-8b3d5fb3bf9a
+		summarizeBy: none
+		sourceColumn: Franja
+		sortByColumn: Hora
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Minutos productivos'
+		dataType: double
+		formatString: 0
+		lineageTag: 018018a7-aa82-59d8-8656-5587c4c91ec7
+		summarizeBy: none
+		sourceColumn: Minutos productivos
+
+		annotation SummarizationSetBy = Automatic
+
+	column Turno
+		dataType: string
+		lineageTag: 2620ee96-9d41-5445-b493-e20483ab1d99
+		summarizeBy: none
+		sourceColumn: Turno
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Horas = m
+		mode: import
+		source =
+				let
+				    // Minutos productivos por franja según el Excel (desayuno 08:30-08:50, almuerzo 12:30-13:10, corte 14:30)
+				    Minutos = {0, 0, 0, 0, 0, 0, 60, 60, 40, 60, 60, 60, 30, 50, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+				    Pad = (n) => Text.PadStart(Text.From(n), 2, "0"),
+				    Filas = List.Transform({0..23}, (h) => {h, Pad(h) & "–" & Pad(h + 1) & " h", Minutos{h},
+				        if Minutos{h} > 0 then "Turno" else "Fuera de turno"}),
+				    Tabla = #table(type table [Hora = Int64.Type, Franja = text, #"Minutos productivos" = number, Turno = text], Filas)
+				in
+				    Tabla
+
+	annotation PBI_ResultType = Table
+

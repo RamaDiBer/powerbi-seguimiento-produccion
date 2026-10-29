@@ -1,0 +1,7 @@
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+_tmp/
+~$*
+# datos crudos con informaci?n del personal
+tools/
+*.pbix

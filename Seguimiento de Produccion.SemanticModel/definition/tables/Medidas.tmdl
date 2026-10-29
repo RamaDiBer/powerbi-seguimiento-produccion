@@ -1,0 +1,309 @@
+table Medidas
+	lineageTag: d176b558-65c7-5ffe-afa9-4f7d7b1596ef
+
+	measure Unidades = COUNTROWS ( Eventos )
+		formatString: #,0
+		displayFolder: Producción
+		lineageTag: 3ba677ff-f987-5068-ac2e-6cd398f7e87a
+
+	measure 'Uds Recepción' = CALCULATE ( [Unidades], Etapas[Etapa] = "Recepción" )
+		formatString: #,0
+		displayFolder: Producción\Por etapa
+		lineageTag: b93c4976-e868-5d60-8280-15d6ee272e32
+
+	measure 'Uds Compra' = CALCULATE ( [Unidades], Etapas[Etapa] = "Compra" )
+		formatString: #,0
+		displayFolder: Producción\Por etapa
+		lineageTag: 12f19a29-1927-5ffd-bdbf-1abe895f118d
+
+	measure 'Uds Cosmética' = CALCULATE ( [Unidades], Etapas[Etapa] = "Cosmética" )
+		formatString: #,0
+		displayFolder: Producción\Por etapa
+		lineageTag: 66bb1952-ede5-53a8-8cde-551ce8aa061f
+
+	measure 'Uds Funcional' = CALCULATE ( [Unidades], Etapas[Etapa] = "Funcional" )
+		formatString: #,0
+		displayFolder: Producción\Por etapa
+		lineageTag: 774e01a2-e518-5113-9be0-b21bc178effd
+
+	measure 'Uds Batería' = CALCULATE ( [Unidades], Etapas[Etapa] = "Batería" )
+		formatString: #,0
+		displayFolder: Producción\Por etapa
+		lineageTag: ff4f78bf-eeb7-59e7-9433-9300c2c0e7fd
+
+	measure 'Uds Disp ABC' = CALCULATE ( [Unidades], Etapas[Etapa] = "Disp. final ABC" )
+		formatString: #,0
+		displayFolder: Producción\Por etapa
+		lineageTag: a3662044-0258-5583-bc28-1910acc366c9
+
+	measure 'Uds Disp Scrap' = CALCULATE ( [Unidades], Etapas[Etapa] = "Disp. final Scrap" )
+		formatString: #,0
+		displayFolder: Producción\Por etapa
+		lineageTag: 0a1c82bd-86a2-5d4c-ac4e-379f27270ef5
+
+	measure 'Uds Disposición final' = CALCULATE ( [Unidades], Etapas[Etapa] IN { "Disp. final ABC", "Disp. final Scrap", "Disp. final s/grading" } )
+		formatString: #,0
+		displayFolder: Producción\Por etapa
+		lineageTag: f7ad3cbf-fb91-5b3e-bc31-faa66ec87b90
+
+	measure '% ABC' = DIVIDE ( [Uds Disp ABC], [Uds Disposición final] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Calidad
+		lineageTag: 761854d5-bdc4-5fc7-aa2d-500c13a60413
+
+	measure '% Scrap' = DIVIDE ( [Uds Disp Scrap], [Uds Disposición final] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Calidad
+		lineageTag: 33f28930-145e-5a42-a853-1012d42f4381
+
+	measure 'Días con producción' = CALCULATE ( DISTINCTCOUNT ( Eventos[Fecha] ), REMOVEFILTERS ( Etapas ), REMOVEFILTERS ( Operarios ), REMOVEFILTERS ( Horas ) )
+		formatString: #,0
+		displayFolder: Producción
+		lineageTag: 9cc8c470-8ff4-5236-a1ad-bfda799cdd45
+
+	measure 'Promedio diario' = DIVIDE ( [Unidades], [Días con producción] )
+		formatString: #,0
+		displayFolder: Producción
+		lineageTag: e7247b70-9f2b-551e-8950-42698bdaab4b
+
+	measure Objetivo = SUM ( Etapas[Objetivo diario] ) * [Días con producción]
+		formatString: #,0
+		displayFolder: Objetivos
+		lineageTag: fbcaeb59-9290-5932-8358-9cbf9e69c7e0
+
+	measure '% Cumplimiento objetivo' = DIVIDE ( [Unidades], [Objetivo] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Objetivos
+		lineageTag: 0983b85a-5cb5-5eb3-9f23-abf5c6468d96
+
+	measure 'Diferencia vs objetivo' = IF ( NOT ISBLANK ( [Objetivo] ), [Unidades] - [Objetivo] )
+		formatString: +#,0;-#,0;0
+		displayFolder: Objetivos
+		lineageTag: 2747f658-44a5-5a5b-812e-0fd3a6e25e59
+
+	measure Plan =
+			// Plan por persona y hora (VALORES FORMULAS) aplicado a cada hora en que cada operario produjo
+			SUMX (
+			    SUMMARIZE ( Eventos, Eventos[Fecha], Eventos[Hora], Eventos[Usuario], Etapas[Plan hora persona], Horas[Minutos productivos] ),
+			    Etapas[Plan hora persona] * Horas[Minutos productivos] / 60
+			)
+		formatString: #,0
+		displayFolder: Objetivos
+		lineageTag: 7c83b6f7-962f-57fd-a229-afd1d6e8c221
+
+	measure '% Cumplimiento plan' = DIVIDE ( [Unidades], [Plan] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Objetivos
+		lineageTag: 31cdefed-65fa-5326-ab6f-d495ab06fe7a
+
+	measure 'Unidades acumuladas' =
+			// Solo hasta la última hora con producción, para que la curva no siga después del turno
+			VAR _h = MAX ( Horas[Hora] )
+			VAR _ultima = CALCULATE ( MAX ( Eventos[Hora] ), REMOVEFILTERS ( Horas ) )
+			RETURN
+			    IF ( _h <= _ultima, CALCULATE ( [Unidades], REMOVEFILTERS ( Horas ), Horas[Hora] <= _h ) )
+		formatString: #,0
+		displayFolder: Objetivos
+		lineageTag: 4ef823fd-aee6-5ca9-93ef-8c0c7294b64c
+
+	measure 'Plan acumulado' =
+			VAR _h = MAX ( Horas[Hora] )
+			VAR _ultima = CALCULATE ( MAX ( Eventos[Hora] ), REMOVEFILTERS ( Horas ) )
+			RETURN
+			    IF ( _h <= _ultima, CALCULATE ( [Plan], REMOVEFILTERS ( Horas ), Horas[Hora] <= _h ) )
+		formatString: #,0
+		displayFolder: Objetivos
+		lineageTag: ad14d5b7-1bf2-5446-9767-e9b216c6ef2d
+
+	measure 'Operarios activos' = DISTINCTCOUNT ( Eventos[Usuario] )
+		formatString: #,0
+		displayFolder: Operarios
+		lineageTag: e7e864c8-7419-50ed-b499-1c6c23eb17ac
+
+	measure 'Horas activas' = COUNTROWS ( SUMMARIZE ( Eventos, Eventos[Fecha], Eventos[Hora], Eventos[Usuario] ) )
+		formatString: #,0
+		displayFolder: Operarios
+		lineageTag: 205c7e27-ab43-5d75-8c1f-3380f6605b2f
+
+	measure 'Unidades por hora' = DIVIDE ( [Unidades], [Horas activas] )
+		formatString: #,0.0
+		displayFolder: Operarios
+		lineageTag: 0b21579e-70c5-58e8-8ad2-eb199735730e
+
+	measure 'Días trabajados' = DISTINCTCOUNT ( Eventos[Fecha] )
+		formatString: #,0
+		displayFolder: Operarios
+		lineageTag: 6f377291-57a3-5a14-80fb-87f9578d0e7c
+
+	measure 'Unidades por operario-día' = DIVIDE ( [Unidades], COUNTROWS ( SUMMARIZE ( Eventos, Eventos[Fecha], Eventos[Usuario] ) ) )
+		formatString: #,0
+		displayFolder: Operarios
+		lineageTag: 473d9f06-86a0-5957-8555-ff64241a2078
+
+	measure 'Lead time mediano (días)' =
+			MEDIANX (
+			    FILTER ( Eventos, Eventos[Etapa] IN { "Disp. final ABC", "Disp. final Scrap", "Disp. final s/grading" } && NOT ISBLANK ( RELATED ( Equipos[Lead time (días)] ) ) ),
+			    RELATED ( Equipos[Lead time (días)] )
+			)
+		formatString: #,0.0
+		displayFolder: Calidad
+		lineageTag: a1d6160d-5d50-548b-82b6-aed3e37a6902
+
+	measure Equipos = COUNTROWS ( Equipos )
+		formatString: #,0
+		displayFolder: Equipos
+		lineageTag: ccfbf7ea-3498-554e-9224-ababad3e33a6
+
+	measure 'En planta' = CALCULATE ( COUNTROWS ( Equipos ), KEEPFILTERS ( Equipos[Estado actual] = "En planta" ) )
+		formatString: #,0
+		displayFolder: Equipos
+		lineageTag: dcb60a51-5520-54a1-a0a9-922a65ee0963
+
+	measure 'En reparo' = CALCULATE ( COUNTROWS ( Equipos ), KEEPFILTERS ( Equipos[Estado actual] = "En reparo" ) ) + 0
+		formatString: #,0
+		displayFolder: Equipos
+		lineageTag: d11db53b-5462-55c4-961d-50e6a70f8afd
+
+	measure 'Pendientes de recepción' = CALCULATE ( COUNTROWS ( Equipos ), KEEPFILTERS ( Equipos[Estado actual] = "Pendiente de recepción" ) ) + 0
+		formatString: #,0
+		displayFolder: Equipos
+		lineageTag: 22346750-0a0d-5ab2-8ead-47664b01b0ae
+
+	measure Cerrados = CALCULATE ( COUNTROWS ( Equipos ), KEEPFILTERS ( Equipos[Estado actual] = "Cerrado" ) ) + 0
+		formatString: #,0
+		displayFolder: Equipos
+		lineageTag: 42f34d81-cb74-51e7-bc5f-5c046e57437d
+
+	measure 'Antigüedad promedio WIP (días)' = CALCULATE ( AVERAGE ( Equipos[Días en planta] ), KEEPFILTERS ( Equipos[Estado actual] = "En planta" ) )
+		formatString: #,0.0
+		displayFolder: Equipos
+		lineageTag: 634f9efa-870a-5ad4-af94-7bed490cfb50
+
+	measure 'Txt actualizado' = "Datos al " & FORMAT ( CALCULATE ( MAX ( Eventos[FechaHora] ), REMOVEFILTERS () ), "dd/mm/yyyy hh:nn" ) & " h"
+		displayFolder: Textos
+		lineageTag: 4ce7c24e-92ba-55ee-982b-3e652bbf4a5f
+
+	measure 'Txt día' =
+			VAR _d = MAX ( Eventos[Fecha] )
+			RETURN
+			    IF ( ISBLANK ( _d ), "Sin producción en la selección", FORMAT ( _d, "dddd dd/mm/yyyy" ) )
+		displayFolder: Textos
+		lineageTag: 2dfc120f-3013-56ab-b47f-88f0a6e1a48b
+
+	measure 'Txt prom recepción' = "≈ " & FORMAT ( DIVIDE ( [Uds Recepción], [Días con producción] ), "#,0" ) & " por día"
+		displayFolder: Textos
+		lineageTag: a2e1d9fa-64cd-59ef-9875-9c100eaa8707
+
+	measure 'Txt prom disposición' = "≈ " & FORMAT ( DIVIDE ( [Uds Disposición final], [Días con producción] ), "#,0" ) & " por día"
+		displayFolder: Textos
+		lineageTag: d1841dfe-cbdc-57f3-a98a-abc26298668c
+
+	measure 'Txt % ABC' = FORMAT ( [% ABC], "0.0%" ) & " de la disposición final"
+		displayFolder: Textos
+		lineageTag: d687cccc-3cf9-5515-a2de-d046be093f5c
+
+	measure 'Txt % Scrap' = FORMAT ( [% Scrap], "0.0%" ) & " de la disposición final"
+		displayFolder: Textos
+		lineageTag: a968b8f8-5049-5ea2-ba40-76cd726baa6c
+
+	measure 'Txt lead time' = "mediana Recepción → Disp. final"
+		displayFolder: Textos
+		lineageTag: 46af5052-3225-5e19-80e0-32272f861268
+
+	measure 'Txt WIP' = "foto actual · " & FORMAT ( [Antigüedad promedio WIP (días)], "#,0" ) & " días prom. en planta"
+		displayFolder: Textos
+		lineageTag: 93767884-6776-5f3d-898c-185f6bcf617d
+
+	measure 'Txt objetivo' = "Objetivo: " & FORMAT ( [Objetivo], "#,0" ) & " · Dif: " & FORMAT ( [Diferencia vs objetivo], "+#,0;-#,0;0" )
+		displayFolder: Textos
+		lineageTag: 1510f72b-b444-5f7c-bc60-d4c36c418d7d
+
+	measure 'Txt cumplimiento plan' = "vs plan por persona: " & FORMAT ( [% Cumplimiento plan], "0%" )
+		displayFolder: Textos
+		lineageTag: f9aaa072-ee6b-5041-8577-75a32866fc42
+
+	measure 'Txt operarios' = FORMAT ( [Horas activas], "#,0" ) & " horas-persona con producción"
+		displayFolder: Textos
+		lineageTag: c65a2257-e135-52f1-95e4-2accdf330dea
+
+	measure 'Txt por hora' = "unidades por hora-persona"
+		displayFolder: Textos
+		lineageTag: d62529d0-58e6-5a1c-b328-f614acf6a03f
+
+	measure 'Txt días' = FORMAT ( [Días con producción], "#,0" ) & " días con producción"
+		displayFolder: Textos
+		lineageTag: 5bbca905-144c-59af-94bd-0d882bb7b8cd
+
+	measure 'Txt foto' = "no depende del período"
+		displayFolder: Textos
+		lineageTag: 60e516f7-07ec-5da0-ad1b-3d0629560e01
+
+	measure 'Color etapa' = SELECTEDVALUE ( Etapas[Color], "#5B6B7A" )
+		displayFolder: Formato
+		lineageTag: ced17c09-48f6-5354-8c05-5ba87b059bf0
+
+	measure 'Color cumplimiento' =
+			VAR _p = [% Cumplimiento objetivo]
+			RETURN
+			    SWITCH ( TRUE (), ISBLANK ( _p ), "#B8C2CC", _p >= 1, "#1F9D63", _p >= 0.85, "#E8A317", "#D4533B" )
+		displayFolder: Formato
+		lineageTag: f7be5a4f-8477-5311-8ade-2da21d75b0e9
+
+	measure 'Color fondo plan' =
+			VAR _p = [% Cumplimiento plan]
+			RETURN
+			    SWITCH ( TRUE (), ISBLANK ( [Unidades] ), "#FFFFFF", _p >= 1, "#BFEBD3", _p >= 0.8, "#FFE7A8", "#F7C9C0" )
+		displayFolder: Formato
+		lineageTag: fd4eb4a1-77ce-5da8-be9d-625f9c0ea974
+
+	measure 'Color calor' =
+			VAR _v = [Unidades]
+			VAR _m = MAXX ( CROSSJOIN ( ALLSELECTED ( Operarios[Nombre] ), ALLSELECTED ( Etapas[Etapa] ) ), [Unidades] )
+			VAR _r = DIVIDE ( _v, _m )
+			RETURN
+			    SWITCH ( TRUE (), ISBLANK ( _v ), "#FFFFFF", _r >= 0.8, "#1D4ED8", _r >= 0.6, "#3B82F6", _r >= 0.4, "#7FB0FF", _r >= 0.2, "#BCD4FF", "#E6EEFF" )
+		displayFolder: Formato
+		lineageTag: e6201726-f1ae-5d7f-9f63-c46d6f0d77bc
+
+	measure 'Color texto calor' =
+			VAR _m = MAXX ( CROSSJOIN ( ALLSELECTED ( Operarios[Nombre] ), ALLSELECTED ( Etapas[Etapa] ) ), [Unidades] )
+			RETURN
+			    IF ( DIVIDE ( [Unidades], _m ) >= 0.6, "#FFFFFF", "#0F2A44" )
+		displayFolder: Formato
+		lineageTag: 67154fab-2328-58e0-97d2-43d1c2df753b
+
+	measure 'Color calor grading' =
+			VAR _v = [Uds Disposición final]
+			VAR _m = MAXX ( CROSSJOIN ( ALLSELECTED ( Equipos[Grading compra] ), ALLSELECTED ( Equipos[Grading venta] ) ), [Uds Disposición final] )
+			VAR _r = DIVIDE ( _v, _m )
+			RETURN
+			    SWITCH ( TRUE (), _v = 0, "#FFFFFF", _r >= 0.8, "#1D4ED8", _r >= 0.6, "#3B82F6", _r >= 0.4, "#7FB0FF", _r >= 0.2, "#BCD4FF", "#E6EEFF" )
+		displayFolder: Formato
+		lineageTag: 8aa053f0-933d-5a25-b813-7c2b10e56202
+
+	measure 'Color texto calor grading' =
+			VAR _m = MAXX ( CROSSJOIN ( ALLSELECTED ( Equipos[Grading compra] ), ALLSELECTED ( Equipos[Grading venta] ) ), [Uds Disposición final] )
+			RETURN
+			    IF ( DIVIDE ( [Uds Disposición final], _m ) >= 0.6, "#FFFFFF", "#0F2A44" )
+		displayFolder: Formato
+		lineageTag: 03e66608-c3c8-513c-abde-5ab071e3dfeb
+
+	column Medidas
+		dataType: string
+		isHidden
+		lineageTag: 1348f30a-6194-5856-a063-c1e1f37924e1
+		summarizeBy: none
+		sourceColumn: Medidas
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Medidas = m
+		mode: import
+		source =
+				let
+				    Tabla = #table(type table [Medidas = text], {})
+				in
+				    Tabla
+
+	annotation PBI_ResultType = Table
+

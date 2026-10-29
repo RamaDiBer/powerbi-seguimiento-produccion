@@ -1,0 +1,35 @@
+table Operarios
+	lineageTag: a570b07a-558e-5084-9392-eb2e83fe3f1c
+
+	column Usuario
+		dataType: string
+		lineageTag: 0bfb89a5-8f88-5dfb-ad31-b1771feb35ad
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Usuario]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nombre
+		dataType: string
+		lineageTag: 56d7ee8c-7817-52ea-bb45-ce87c635c508
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Nombre]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Operarios = calculated
+		mode: import
+		source =
+				// Usuarios que registraron producción, con el nombre de la hoja PRODUCCION cuando existe
+				ADDCOLUMNS (
+				    DISTINCT ( SELECTCOLUMNS ( Eventos, "Usuario", Eventos[Usuario] ) ),
+				    "Nombre",
+				        VAR _u = [Usuario]
+				        VAR _n = MAXX ( FILTER ( NombresOperarios, NombresOperarios[Usuario] = _u ), NombresOperarios[Nombre] )
+				        RETURN IF ( ISBLANK ( _n ), _u, _n )
+				)
+
+	annotation PBI_Id = 5ccb4928ab5fffe7b719
+

@@ -1,0 +1,5 @@
+expression RutaExcel = "C:\Users\ext-rdbernardo\Downloads\Seguimiento de Produccion Diario.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 9d4503d4-a55f-5171-854b-1b913697bf88
+
+	annotation PBI_ResultType = Text
+

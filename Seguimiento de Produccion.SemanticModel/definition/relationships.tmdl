@@ -1,0 +1,25 @@
+relationship f0aaf043-8780-510b-8c38-b07856352ace
+	fromColumn: Eventos.ID
+	toColumn: Equipos.ID
+
+relationship 0ef97049-ecb1-5460-8c1a-fd6ac190be48
+	fromColumn: Eventos.Etapa
+	toColumn: Etapas.Etapa
+
+relationship 296c0a18-70b1-5777-a17e-9f8ab2c29c24
+	fromColumn: Eventos.Fecha
+	toColumn: Calendario.Fecha
+
+relationship a1c3354e-62fd-5fd7-983d-ff43ec10d4c6
+	fromColumn: Eventos.Hora
+	toColumn: Horas.Hora
+
+relationship 7d15bbc4-5ced-5f12-a517-3cdfe4194306
+	fromColumn: Eventos.Usuario
+	toColumn: Operarios.Usuario
+
+relationship 07793463-3595-5e22-9fd2-c9bb79d04479
+	crossFilteringBehavior: bothDirections
+	fromColumn: Periodos.Fecha
+	toColumn: Calendario.Fecha
+

@@ -1,0 +1,41 @@
+table NombresOperarios
+	isHidden
+	lineageTag: 30683752-75a1-5a16-8cbd-de096c13d3d9
+
+	column Usuario
+		dataType: string
+		lineageTag: cbf02943-b71c-5b2e-a992-749b397abea6
+		summarizeBy: none
+		sourceColumn: Usuario
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nombre
+		dataType: string
+		lineageTag: f79497e0-8ea6-5797-85c6-f6e8bdc2e8ab
+		summarizeBy: none
+		sourceColumn: Nombre
+
+		annotation SummarizationSetBy = Automatic
+
+	partition NombresOperarios = m
+		mode: import
+		source =
+				let
+				    // Hoja PRODUCCION: columna A = nombre del operario, columna B = usuario del sistema
+				    Origen = Excel.Workbook(File.Contents(RutaExcel), null, true),
+				    Hoja = try Origen{[Item = "PRODUCCION", Kind = "Sheet"]}[Data] otherwise #table({"Column1", "Column2"}, {}),
+				    Pares = Table.SelectColumns(Hoja, {"Column1", "Column2"}, MissingField.UseNull),
+				    Validos = Table.SelectRows(Pares, each
+				        Value.Is([Column1], type text) and Value.Is([Column2], type text)
+				        and not List.Contains({"OPERARIO", "FECHA", ""}, Text.Upper(Text.Trim([Column1])))
+				        and not Text.StartsWith(Text.Upper(Text.Trim([Column2])), "USUARIO")),
+				    Tabla = Table.FromRows(List.Transform(Table.ToRecords(Validos), each
+				        {Text.Upper(Text.Trim([Column2])), Text.Proper(Text.Trim([Column1]))}),
+				        type table [Usuario = text, Nombre = text]),
+				    Unicos = Table.Distinct(Tabla, {"Usuario"})
+				in
+				    Unicos
+
+	annotation PBI_ResultType = Table
+

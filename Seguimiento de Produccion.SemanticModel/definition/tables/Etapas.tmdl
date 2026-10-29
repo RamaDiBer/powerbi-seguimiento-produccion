@@ -1,0 +1,81 @@
+table Etapas
+	lineageTag: 83bd16cc-ca22-5805-96b6-7d5dafd5a20e
+
+	column Etapa
+		dataType: string
+		lineageTag: a0c991af-ebe8-52fe-aa0b-9fd4438123b0
+		summarizeBy: none
+		sourceColumn: Etapa
+		sortByColumn: Orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Orden
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7f49e9ce-542f-5e82-9b64-6d4cdd2bc740
+		summarizeBy: none
+		sourceColumn: Orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Objetivo diario'
+		dataType: double
+		formatString: #,0
+		lineageTag: ce8031bf-8e7d-572d-b38f-86c20e02cffe
+		summarizeBy: none
+		sourceColumn: Objetivo diario
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Plan hora persona'
+		dataType: double
+		formatString: #,0
+		lineageTag: 60214722-6de5-51aa-8792-bba5ee261754
+		summarizeBy: none
+		sourceColumn: Plan hora persona
+
+		annotation SummarizationSetBy = Automatic
+
+	column Color
+		dataType: string
+		isHidden
+		lineageTag: 235c31d6-a052-5c03-b102-fe596558a3d5
+		summarizeBy: none
+		sourceColumn: Color
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Etapas = m
+		mode: import
+		source =
+				let
+				    // Etapas productivas; objetivo diario y plan por hora por persona salen de la hoja VALORES FORMULAS
+				    Base = #table(
+				        type table [Etapa = text, Orden = Int64.Type, ClaveObjetivo = nullable text, ClavePlan = text,
+				            ObjetivoDefecto = nullable number, PlanDefecto = number, Color = text],
+				        {
+				            {"Recepción", 1, "Recepción", "RECEPCION", 173, 27, "#2F6BFF"},
+				            {"Compra", 2, "Compra", "COMPRA", 171, 18, "#7C4DFF"},
+				            {"Cosmética", 3, "Cosmetica", "COMPRA", 206, 18, "#00A3A3"},
+				            {"Funcional", 4, "Test Funcional", "FUNCIONAL", 124, 18, "#F28C28"},
+				            {"Batería", 5, "Test Batería", "BATERIA", 111, 19, "#E6B800"},
+				            {"Disp. final ABC", 6, "Packing", "DISPOSICION FINAL", 95, 18, "#1F9D63"},
+				            {"Disp. final Scrap", 7, "Scrap", "DISPOSICION FINAL", 64, 18, "#D4533B"},
+				            {"Disp. final s/grading", 8, null, "DISPOSICION FINAL", null, 18, "#8A97A3"}}),
+				    Origen = Excel.Workbook(File.Contents(RutaExcel), null, true),
+				    Hoja = try Origen{[Item = "VALORES FORMULAS", Kind = "Sheet"]}[Data] otherwise #table({"Column1", "Column2"}, {}),
+				    Pares = Table.SelectColumns(Hoja, {"Column1", "Column2"}, MissingField.UseNull),
+				    Buscar = (clave) =>
+				        if clave = null then null
+				        else let f = Table.SelectRows(Pares, each [Column1] = clave and Value.Is([Column2], type number))
+				        in if Table.IsEmpty(f) then null else f{0}[Column2],
+				    Objetivo = Table.AddColumn(Base, "Objetivo diario", each Buscar([ClaveObjetivo]) ?? [ObjetivoDefecto], type nullable number),
+				    Plan = Table.AddColumn(Objetivo, "Plan hora persona", each Buscar([ClavePlan]) ?? [PlanDefecto], type number),
+				    Final = Table.SelectColumns(Plan, {"Etapa", "Orden", "Objetivo diario", "Plan hora persona", "Color"})
+				in
+				    Final
+
+	annotation PBI_ResultType = Table
+

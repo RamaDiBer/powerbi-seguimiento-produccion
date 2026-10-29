@@ -1,0 +1,24 @@
+model Model
+	culture: es-ES
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-AR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["RutaExcel","Equipos","Etapas","Calendario","Horas","Periodos","NombresOperarios","Medidas"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Equipos
+ref table Eventos
+ref table Operarios
+ref table Etapas
+ref table Calendario
+ref table Horas
+ref table Periodos
+ref table NombresOperarios
+ref table Medidas
+
