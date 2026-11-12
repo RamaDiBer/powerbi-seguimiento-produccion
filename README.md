@@ -1,62 +1,65 @@
-# 🏭 Seguimiento de producción
+# 🏭 Production Tracking
 
 ![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
 ![DAX](https://img.shields.io/badge/DAX-1557b0?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Formato](https://img.shields.io/badge/formato-.pbip-555?style=for-the-badge)
+![Format](https://img.shields.io/badge/format-.pbip-555?style=for-the-badge)
 
-> Dashboard operativo para una línea de **reacondicionamiento de equipos**: cuántas unidades pasan por cada etapa, cómo vamos contra el plan, qué tan productivo es cada operario y cuánto trabajo queda en proceso.
+> Operational dashboard for a **device refurbishing line**: how many units go through each stage, how we are doing against the plan, how productive each operator is and how much work is still in progress.
 
-## 📌 Qué responde
+*The report itself (page names, measures, labels) is in Spanish.*
 
-- ¿Cuántas unidades se procesaron hoy, en el mes y en el acumulado?
-- ¿Estamos cumpliendo el **objetivo** y el **plan**?
-- ¿Cuántas unidades por hora y por operario-día se producen?
-- ¿Qué porcentaje termina como **ABC** y cuánto como **scrap**?
-- ¿Cuánto tarda un equipo en recorrer el proceso (**lead time**) y cuánto **WIP** hay en planta?
+## 📌 Questions it answers
 
-## 🔄 Etapas del proceso
+- How many units were processed today, this month and to date?
+- Are we hitting the **target** and the **plan**?
+- How many units per hour and per operator-day are produced?
+- What share ends up as **ABC** (sellable) and how much as **scrap**?
+- How long does a device take to go through the process (**lead time**), and how much **WIP** is on the floor?
 
-`Recepción → Compra → Cosmética → Funcional → Batería → Disposición final (ABC / Scrap)`
+## 🔄 Process stages
 
-## 🧱 Modelo de datos
+`Reception → Purchase grading → Cosmetic → Functional test → Battery test → Final disposition (ABC / Scrap)`
 
-| Tabla | Contenido |
+## 🧱 Data model
+
+| Table | Content |
 |---|---|
-| `Equipos` | Una fila por equipo con su recorrido por las etapas |
-| `Eventos` | Movimientos de cada equipo entre etapas |
-| `Etapas` | Catálogo y orden de etapas |
-| `Operarios` / `NombresOperarios` | Personal de la línea |
-| `Horas` | Horas trabajadas |
-| `Calendario` / `Periodos` | Dimensión de fechas y selector de período |
-| `Medidas` | 50+ medidas DAX |
+| `Equipos` | One row per device with its path through the stages |
+| `Eventos` | Each device's moves between stages |
+| `Etapas` | Stage catalog and order |
+| `Operarios` / `NombresOperarios` | Line staff |
+| `Horas` | Productive minutes per hourly slot |
+| `Calendario` / `Periodos` | Date dimension and period selector |
+| `Medidas` | 50+ DAX measures |
 
-La fuente es un Excel diario de producción, leído desde el parámetro `RutaExcel`.
+The source is a daily production Excel file, read from the `RutaExcel` parameter.
 
-## 📐 Medidas principales
+## 📐 Main measures
 
-| Grupo | Medidas |
+| Group | Measures |
 |---|---|
-| Volumen | Unidades, Uds por etapa, Unidades acumuladas, Promedio diario |
-| Cumplimiento | Objetivo, Plan, % Cumplimiento objetivo/plan, Diferencia vs objetivo |
-| Productividad | Operarios activos, Horas activas, Unidades por hora, Unidades por operario-día |
-| Calidad | % ABC, % Scrap |
-| Flujo | Lead time mediano, En planta, En reparo, Pendientes de recepción, Antigüedad promedio WIP |
-| Formato | Medidas `Color …` y `Txt …` para formato condicional y textos dinámicos |
+| Volume | Units, units per stage, cumulative units, daily average |
+| Attainment | Target, plan, % of target / plan, gap vs. target |
+| Productivity | Active operators, active hours, units per hour, units per operator-day |
+| Quality | % ABC, % scrap |
+| Flow | Median lead time, on the floor, in repair, pending reception, average WIP age |
+| Formatting | `Color …` and `Txt …` measures for conditional formatting and dynamic text |
 
-## 📄 Páginas del informe
+## 📄 Report pages
 
-1. **Resumen** — KPIs principales y cumplimiento del plan
-2. **Operarios** — productividad por persona
-3. **Calidad y grading** — resultados de disposición final
-4. **Producción del día** — foto diaria por etapa
-5. **Flujo y WIP** — stock en proceso y antigüedad
-6. **Detalle de equipos** — trazabilidad individual
+1. **Resumen (Summary):** main KPIs and plan attainment
+2. **Operarios (Operators):** productivity per person
+3. **Calidad y grading (Quality):** final disposition results
+4. **Producción del día (Today):** daily snapshot per stage
+5. **Flujo y WIP (Flow):** work in progress and its age
+6. **Detalle de equipos (Device detail):** per-device traceability
 
-## ▶️ Cómo abrirlo
+## ▶️ How to open it
 
-1. Abrir `Seguimiento de Produccion.pbip` con Power BI Desktop.
-2. En **Transformar datos → Parámetros**, apuntar `RutaExcel` al Excel de producción.
-3. Actualizar.
+1. Generate a synthetic dataset: `pip install openpyxl` and `python demo/generate_demo_data.py` (creates `seguimiento_produccion_demo.xlsx` with ~6,000 fake devices, operators and clients).
+2. Open `Seguimiento de Produccion.pbip` in Power BI Desktop.
+3. Under **Transform data → Parameters**, point `RutaExcel` to that file (or to the real production Excel).
+4. Refresh.
 
-> 🔒 Los datos de producción contienen información del personal, por lo que el repositorio incluye solo el modelo, las medidas y el diseño del informe, sin datos.
+> 🔒 Production data includes staff information, so the repository holds only the model, the measures and the report design, with no data.
