@@ -9,6 +9,10 @@
 
 *The report itself (page names, measures, labels) is in Spanish.*
 
+![Summary page](screenshots/01-summary.png)
+
+> 📸 All screenshots use **synthetic demo data** (fake devices, operators and clients) generated with [`demo/generate_demo_data.py`](demo/generate_demo_data.py).
+
 ## 📌 Questions it answers
 
 - How many units were processed today, this month and to date?
@@ -54,6 +58,20 @@ The source is a daily production Excel file, read from the `RutaExcel` parameter
 4. **Producción del día (Today):** daily snapshot per stage
 5. **Flujo y WIP (Flow):** work in progress and its age
 6. **Detalle de equipos (Device detail):** per-device traceability
+
+## 🖼️ More pages
+
+| Today | Operators |
+|---|---|
+| ![Today](screenshots/02-today.png) | ![Operators](screenshots/03-operators.png) |
+| **Quality & grading** | **Flow & WIP** |
+| ![Quality and grading](screenshots/04-quality-grading.png) | ![Flow and WIP](screenshots/05-flow-wip.png) |
+
+<details><summary>Device detail</summary>
+
+![Device detail](screenshots/06-device-detail.png)
+
+</details>
 
 ## ▶️ How to open it
 
